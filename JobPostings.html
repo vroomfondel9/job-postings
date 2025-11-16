@@ -282,9 +282,79 @@ body {
   font-weight: 600;
 }
 
+.accordion {
+  width: 700px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.accordion-header {
+  padding: 1rem;
+  font-weight: 600;
+  background: #e0e0e5;
+  cursor: pointer;
+}
+
+.accordion-content {
+  padding: 1rem 0;
+  display: none;
+}
+
+.accordion-section {
+  width: 800px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.accordion-header {
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #e5e5ea;
+}
+
+.accordion-content {
+  padding: 1rem;
+  display: none;
+}
+
+
+
 </style>
 </head>
 <body>
+<h1 style="margin:0;">Job Listings</h1>
+<h3 id="timestamp-subheading" style="margin-top:-0.5rem; font-weight:400; color:#444;">
+  as of ...
+</h3>
+
+<div class="accordion">
+  <div class="accordion-header" data-target="section-ready">
+    Ready For Review
+  </div>
+  <div class="accordion-content" id="section-ready" style="display: block;"></div>
+</div>
+
+<div class="accordion">
+  <div class="accordion-header" data-target="section-waiting">
+    Waiting
+  </div>
+  <div class="accordion-content" id="section-waiting" style="display: none;"></div>
+</div>
+
+<div class="accordion">
+  <div class="accordion-header" data-target="section-dismissed">
+    Dismissed
+  </div>
+  <div class="accordion-content" id="section-dismissed" style="display: none;"></div>
+</div>
+
+
 <div id="overlay-notes">
   <div class="notes-box">
     <textarea id="notes-textarea"></textarea>
@@ -314,8 +384,11 @@ const jobPostings = [
     "salary_max": 14000000,
     "salary_min": 10000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:49.561Z\"",
-    "updatedAt": "\"2025-11-16T06:00:33.237Z\"",
+    "createdAt": "2025-11-05T02:05:49.561Z",
+    "updatedAt": "2025-11-16T07:05:20.896Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Python": 1,
       "Kubernetes": 0,
@@ -344,8 +417,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 6000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:49.561Z\"",
-    "updatedAt": "\"2025-11-16T06:00:33.248Z\"",
+    "createdAt": "2025-11-05T02:05:49.561Z",
+    "updatedAt": "2025-11-16T07:05:20.907Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Kubernetes": 0,
       "AWS": 2,
@@ -373,8 +449,11 @@ const jobPostings = [
     "salary_max": 15000000,
     "salary_min": 8000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:49.561Z\"",
-    "updatedAt": "\"2025-11-16T06:00:33.268Z\"",
+    "createdAt": "2025-11-05T02:05:49.561Z",
+    "updatedAt": "2025-11-16T07:05:20.929Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Git": 4,
       "Jira": 4
@@ -397,8 +476,11 @@ const jobPostings = [
     "salary_max": 13000000,
     "salary_min": 9000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
-    "updatedAt": "\"2025-11-16T06:00:37.997Z\"",
+    "createdAt": "2025-11-05T02:05:56.365Z",
+    "updatedAt": "2025-11-16T07:05:26.323Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Ruby": 0,
       "Ruby On Rails": 0,
@@ -426,8 +508,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 8000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
-    "updatedAt": "\"2025-11-16T06:00:38.007Z\"",
+    "createdAt": "2025-11-05T02:05:56.365Z",
+    "updatedAt": "2025-11-16T07:05:26.333Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Figma": 0,
       "Sketch": 0,
@@ -451,8 +536,11 @@ const jobPostings = [
     "salary_max": 8500000,
     "salary_min": 6000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
-    "updatedAt": "\"2025-11-16T06:00:38.016Z\"",
+    "createdAt": "2025-11-05T02:05:56.365Z",
+    "updatedAt": "2025-11-16T07:05:26.345Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "TypeScript": 0,
       "React": 0,
@@ -479,8 +567,11 @@ const jobPostings = [
     "salary_max": 9000000,
     "salary_min": 7000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
-    "updatedAt": "\"2025-11-16T06:00:33.224Z\"",
+    "createdAt": "2025-11-05T02:05:56.365Z",
+    "updatedAt": "2025-11-16T07:05:20.884Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Python": 2,
       "TypeScript": 0,
@@ -508,8 +599,11 @@ const jobPostings = [
     "salary_max": 9000000,
     "salary_min": 7000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
-    "updatedAt": "\"2025-11-08T05:14:03.289Z\"",
+    "createdAt": "2025-11-05T02:05:56.365Z",
+    "updatedAt": "2025-11-08T05:14:03.289Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Python": 1,
       "TypeScript": 0
@@ -532,8 +626,11 @@ const jobPostings = [
     "salary_max": 9500000,
     "salary_min": 6000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
-    "updatedAt": "\"2025-11-16T06:00:38.027Z\"",
+    "createdAt": "2025-11-05T02:05:56.365Z",
+    "updatedAt": "2025-11-16T07:05:26.355Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Scala": 0,
       "Java": 4,
@@ -562,8 +659,11 @@ const jobPostings = [
     "salary_max": 10000000,
     "salary_min": 6000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
-    "updatedAt": "\"2025-11-16T06:00:38.036Z\"",
+    "createdAt": "2025-11-05T02:05:56.365Z",
+    "updatedAt": "2025-11-16T07:05:26.365Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Ruby on Rails": 0,
       "Ruby": 0,
@@ -595,8 +695,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 10000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
-    "updatedAt": "\"2025-11-16T06:00:38.046Z\"",
+    "createdAt": "2025-11-05T02:05:56.365Z",
+    "updatedAt": "2025-11-16T07:05:26.375Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "React": 1,
       "TypeScript": 0,
@@ -622,8 +725,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 7500000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
-    "updatedAt": "\"2025-11-16T06:00:42.731Z\"",
+    "createdAt": "2025-11-05T02:06:03.894Z",
+    "updatedAt": "2025-11-16T07:05:31.313Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Python": 1,
       "TypeScript": 0,
@@ -633,10 +739,10 @@ const jobPostings = [
   },
   {
     "id": 122,
-    "llm_match_percent": 25,
+    "llm_match_percent": 45,
     "llm_short_title": "Founding Engineer",
-    "llm_short_duty": "building voice/AI products with TypeScript/React",
-    "llm_short_company_type": "AI startup",
+    "llm_short_duty": "Building voice and AI products",
+    "llm_short_company_type": "AI Startup",
     "llm_remote_percentage": 100,
     "remote_partial": false,
     "remote_full": true,
@@ -648,18 +754,21 @@ const jobPostings = [
     "salary_max": 25000000,
     "salary_min": 20000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
-    "updatedAt": "\"2025-11-16T06:00:42.743Z\"",
+    "createdAt": "2025-11-05T02:06:03.894Z",
+    "updatedAt": "2025-11-16T07:05:43.782Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "TypeScript": 0,
-      "React": 0,
       "React Router v7": 0,
       "Vite": 0,
       "Vitest": 0,
       "Playwright": 0,
       "pnpm": 0,
       "Cloudflare": 0,
-      "Turso": 0
+      "Turso": 0,
+      "React": 0
     }
   },
   {
@@ -679,8 +788,11 @@ const jobPostings = [
     "salary_max": 8400000,
     "salary_min": 3600000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
-    "updatedAt": "\"2025-11-16T06:00:42.753Z\"",
+    "createdAt": "2025-11-05T02:06:03.894Z",
+    "updatedAt": "2025-11-16T07:05:31.332Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "React": 2,
       "TypeScript": 0,
@@ -709,8 +821,11 @@ const jobPostings = [
     "salary_max": 10000000,
     "salary_min": 8000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
-    "updatedAt": "\"2025-11-16T06:00:42.762Z\"",
+    "createdAt": "2025-11-05T02:06:03.894Z",
+    "updatedAt": "2025-11-16T07:05:31.341Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "AWS": 0,
       "Google Cloud": 0,
@@ -746,8 +861,11 @@ const jobPostings = [
     "salary_max": 10200000,
     "salary_min": 8400000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
-    "updatedAt": "\"2025-11-16T06:00:42.771Z\"",
+    "createdAt": "2025-11-05T02:06:03.894Z",
+    "updatedAt": "2025-11-16T07:05:31.350Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {}
   },
   {
@@ -767,8 +885,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 8500000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
-    "updatedAt": "\"2025-11-16T06:00:42.783Z\"",
+    "createdAt": "2025-11-05T02:06:03.894Z",
+    "updatedAt": "2025-11-16T07:05:31.361Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "TypeScript": 1,
       "React": 1,
@@ -802,8 +923,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 8000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:10.033Z\"",
-    "updatedAt": "\"2025-11-08T05:14:03.289Z\"",
+    "createdAt": "2025-11-05T02:06:10.033Z",
+    "updatedAt": "2025-11-08T05:14:03.289Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Python": 1,
       "PyTorch": 1,
@@ -833,8 +957,11 @@ const jobPostings = [
     "salary_max": 10200000,
     "salary_min": 6000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:10.033Z\"",
-    "updatedAt": "\"2025-11-16T06:00:47.349Z\"",
+    "createdAt": "2025-11-05T02:06:10.033Z",
+    "updatedAt": "2025-11-16T07:05:36.070Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Salesforce": 0,
       "Apex": 0,
@@ -859,8 +986,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 8000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:17.985Z\"",
-    "updatedAt": "\"2025-11-16T06:00:51.619Z\"",
+    "createdAt": "2025-11-05T02:06:17.985Z",
+    "updatedAt": "2025-11-16T07:05:40.546Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Terraform": 1,
       "AWS": 0,
@@ -884,8 +1014,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 8000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:17.985Z\"",
-    "updatedAt": "\"2025-11-16T06:00:51.630Z\"",
+    "createdAt": "2025-11-05T02:06:17.985Z",
+    "updatedAt": "2025-11-16T07:05:40.558Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Selenium": 1
     }
@@ -907,8 +1040,11 @@ const jobPostings = [
     "salary_max": 10000000,
     "salary_min": 7000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:17.985Z\"",
-    "updatedAt": "\"2025-11-16T06:00:51.640Z\"",
+    "createdAt": "2025-11-05T02:06:17.985Z",
+    "updatedAt": "2025-11-16T07:05:40.567Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Selenium": 1
     }
@@ -930,8 +1066,11 @@ const jobPostings = [
     "salary_max": 8500000,
     "salary_min": 4500000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
-    "updatedAt": "\"2025-11-16T05:55:34.468Z\"",
+    "createdAt": "2025-11-05T02:06:21.693Z",
+    "updatedAt": "2025-11-16T07:00:34.185Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Java": 4,
       "JavaScript": 3,
@@ -967,8 +1106,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 5000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
-    "updatedAt": "\"2025-11-16T05:55:34.478Z\"",
+    "createdAt": "2025-11-05T02:06:21.693Z",
+    "updatedAt": "2025-11-16T07:00:34.195Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Java": 4,
       "HTML": 4,
@@ -1000,8 +1142,11 @@ const jobPostings = [
     "salary_max": 10000000,
     "salary_min": 5500000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
-    "updatedAt": "\"2025-11-16T05:55:34.529Z\"",
+    "createdAt": "2025-11-05T02:06:21.693Z",
+    "updatedAt": "2025-11-16T07:00:34.249Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Python": 1,
       "JavaScript": 0,
@@ -1043,8 +1188,11 @@ const jobPostings = [
     "salary_max": 18000000,
     "salary_min": 7000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
-    "updatedAt": "\"2025-11-16T05:55:34.549Z\"",
+    "createdAt": "2025-11-05T02:06:21.693Z",
+    "updatedAt": "2025-11-16T07:00:34.275Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "TypeScript": 0,
       "Next.js": 0,
@@ -1082,8 +1230,11 @@ const jobPostings = [
     "salary_max": 18000000,
     "salary_min": 7000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
-    "updatedAt": "\"2025-11-16T05:55:34.560Z\"",
+    "createdAt": "2025-11-05T02:06:21.693Z",
+    "updatedAt": "2025-11-16T07:00:34.286Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Go": 0,
       "Rust": 0,
@@ -1113,8 +1264,11 @@ const jobPostings = [
     "salary_max": 18000000,
     "salary_min": 7000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
-    "updatedAt": "\"2025-11-16T05:55:34.572Z\"",
+    "createdAt": "2025-11-05T02:06:21.693Z",
+    "updatedAt": "2025-11-16T07:00:34.297Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Go": 0,
       "Rust": 0,
@@ -1145,8 +1299,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 8000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:27.052Z\"",
-    "updatedAt": "\"2025-11-16T05:55:39.117Z\"",
+    "createdAt": "2025-11-05T02:06:27.052Z",
+    "updatedAt": "2025-11-16T07:00:39.003Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "SQL": 2,
       "MySQL": 2,
@@ -1174,8 +1331,11 @@ const jobPostings = [
     "salary_max": 8500000,
     "salary_min": 6000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:27.052Z\"",
-    "updatedAt": "\"2025-11-16T05:55:39.163Z\"",
+    "createdAt": "2025-11-05T02:06:27.052Z",
+    "updatedAt": "2025-11-16T07:00:39.041Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Git": 4,
       "Jenkins": 4,
@@ -1200,8 +1360,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 7000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:27.052Z\"",
-    "updatedAt": "\"2025-11-16T05:55:39.174Z\"",
+    "createdAt": "2025-11-05T02:06:27.052Z",
+    "updatedAt": "2025-11-16T07:00:39.052Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Python": 1,
       "Flask": 0,
@@ -1232,8 +1395,11 @@ const jobPostings = [
     "salary_max": 12000000,
     "salary_min": 7000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-05T02:06:27.052Z\"",
-    "updatedAt": "\"2025-11-16T05:55:39.195Z\"",
+    "createdAt": "2025-11-05T02:06:27.052Z",
+    "updatedAt": "2025-11-16T07:00:39.074Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
       "Vue.js": 0,
       "React": 0
@@ -1242,8 +1408,8 @@ const jobPostings = [
   {
     "id": 327,
     "llm_match_percent": 15,
-    "llm_short_title": "Senior UX/UI Designer",
-    "llm_short_duty": "designing user interfaces and experiences",
+    "llm_short_title": "UX/UI Designer",
+    "llm_short_duty": "Designing user interfaces and user experiences",
     "llm_short_company_type": "HR Tech",
     "llm_remote_percentage": 100,
     "remote_partial": false,
@@ -1256,16 +1422,30 @@ const jobPostings = [
     "salary_max": 8400000,
     "salary_min": 6000000,
     "new_to_me": false,
-    "createdAt": "\"2025-11-11T17:25:19.494Z\"",
-    "updatedAt": "\"2025-11-16T06:00:33.258Z\"",
+    "createdAt": "2025-11-11T17:25:19.494Z",
+    "updatedAt": "2025-11-16T07:05:43.799Z",
+    "blocked": null,
+    "ignored": null,
+    "user_notes": null,
     "llm_techs_used": {
-      "Figma": 0,
-      "Design": 0
+      "Figma": 0
     }
   }
 ];
 
 jobPostings.sort((a, b) => b.llm_match_percent - a.llm_match_percent);
+
+document.getElementById("timestamp-subheading").textContent =
+  "as of " + generationTimestamp.toLocaleString();
+
+document.querySelectorAll(".accordion-header").forEach(h => {
+  h.addEventListener("click", () => {
+    const target = document.getElementById(h.dataset.target);
+    const isOpen = target.style.display === "block";
+    target.style.display = isOpen ? "none" : "block";
+  });
+});
+
 
 function colorFromPercent(p){
   const r = p<50 ? 255 : Math.round(255 - (p-50)*5.1);
@@ -1441,8 +1621,8 @@ notesBtn.className = "action-btn";
 notesBtn.textContent = "Edit Notes";
 notesBtn.onclick = () => {
   overlay.style.display = "flex";
-  notesTextarea.value = j.note || "";
-  notesTextarea.dataset.cardId = j.id; // track which card
+  notesTextarea.value = j.user_notes || "";
+  notesTextarea.dataset.cardId = j.id;
 };
 actions.appendChild(notesBtn);
 
@@ -1450,14 +1630,22 @@ actions.appendChild(notesBtn);
 const blockBtn = document.createElement("div");
 blockBtn.className = "action-btn";
 blockBtn.textContent = "Mark as Blocked";
-blockBtn.onclick = () => { j.blocked = true; };
+blockBtn.onclick = () => {
+  j.blocked = true;
+  j.ignored = false;
+  moveCard(card, j);
+};
 actions.appendChild(blockBtn);
 
 // "Mark as Ignored" button
 const ignoreBtn = document.createElement("div");
 ignoreBtn.className = "action-btn";
 ignoreBtn.textContent = "Mark as Ignored";
-ignoreBtn.onclick = () => { j.ignored = true; };
+ignoreBtn.onclick = () => {
+  j.ignored = true;
+  j.blocked = false;
+  moveCard(card, j);
+};
 actions.appendChild(ignoreBtn);
 
 
@@ -1465,19 +1653,65 @@ actions.appendChild(ignoreBtn);
   return card;
 }
 
-jobPostings.forEach(j=>document.body.appendChild(makeCard(j)));
+const readySection = document.getElementById("section-ready");
+const waitingSection = document.getElementById("section-waiting");
+const dismissedSection = document.getElementById("section-dismissed");
+
+jobPostings.forEach(j => {
+  const card = makeCard(j);
+
+  if (j.ignored === true) {
+    dismissedSection.appendChild(card);
+  } else if (j.blocked === true) {
+    waitingSection.appendChild(card);
+  } else {
+    readySection.appendChild(card);
+  }
+});
+
+function moveCard(card, j) {
+  if (j.ignored === true) {
+    dismissedSection.appendChild(card);
+  } else if (j.blocked === true) {
+    waitingSection.appendChild(card);
+  } else {
+    readySection.appendChild(card);
+  }
+}
+
+
 
     const overlay = document.getElementById("overlay-notes");
 const notesTextarea = document.getElementById("notes-textarea");
 document.getElementById("save-note").onclick = () => {
   const cardId = parseInt(notesTextarea.dataset.cardId);
   const cardData = jobPostings.find(j => j.id === cardId);
-  cardData.note = notesTextarea.value;
+  cardData.user_notes = notesTextarea.value;
   overlay.style.display = "none";
 };
 document.getElementById("cancel-note").onclick = () => {
   overlay.style.display = "none";
 };
+
+// --- ACCORDION LOGIC ---
+
+function setupAccordion(id, startOpen) {
+  const acc = document.getElementById(id);
+  const header = acc.querySelector(".accordion-header");
+  const content = acc.querySelector(".accordion-content");
+
+  // initial state
+  content.style.display = startOpen ? "block" : "none";
+
+  header.addEventListener("click", () => {
+    content.style.display = (content.style.display === "none") ? "block" : "none";
+  });
+}
+
+setupAccordion("section-ready", true);     // open by default
+setupAccordion("section-waiting", false);
+setupAccordion("section-dismissed", false);
+
 
 </script>
 </body>
