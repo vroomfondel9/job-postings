@@ -1550,6 +1550,7 @@ function renderCardButtons(actions, j, card) {
 function makeCard(j){
   const card=document.createElement("div");
   card.className="card";
+  card.dataset.id = String(j.id);
   card.style.border=`3px solid ${colorFromPercent(j.llm_match_percent)}`;
   card.style.boxShadow=`0 0 12px ${colorFromPercent(j.llm_match_percent)}`;
 
@@ -1710,27 +1711,63 @@ const dismissedSection = document.getElementById("section-dismissed");
 
 jobPostings.forEach(j => {
   const card = makeCard(j);
-
-  if (j.ignored === true) {
-    dismissedSection.appendChild(card);
-  } else if (j.blocked === true) {
-    waitingSection.appendChild(card);
-  } else {
-    readySection.appendChild(card);
-  }
+  if (j.ignored === true) { insertCardSorted(dismissedSection, card, j); }
+  else if (j.blocked === true) { insertCardSorted(waitingSection, card, j); }
+  else { insertCardSorted(readySection, card, j); }
 });
 
-function moveCard(card, j) {
-  if (j.ignored === true) {
-    dismissedSection.appendChild(card);
-  } else if (j.blocked === true) {
-    waitingSection.appendChild(card);
-  } else {
-    readySection.appendChild(card);
+function insertCardSorted(section, card, j) {
+  // Get current children as array
+  const children = Array.from(section.children);
+
+  // Find insertion point: first child whose job's llm_match_percent < j.llm_match_percent
+  let inserted = false;
+  for (let existingEl of children) {
+    const existingId = existingEl.dataset?.id;
+    if (!existingId) continue;
+    const existingJob = jobPostings.find(x => String(x.id) === String(existingId));
+    if (!existingJob) continue;
+
+    if (existingJob.llm_match_percent < j.llm_match_percent) {
+      section.insertBefore(card, existingEl);
+      inserted = true;
+      break;
+    }
   }
 
-  renderCardButtons(card.querySelector(".card-actions"), j, card);
+  // If nothing found, append to end
+  if (!inserted) {
+    section.appendChild(card);
+  }
 }
+
+
+function moveCard(card, j) {
+  // remove card from its current parent if present
+  if (card.parentElement) {
+    card.parentElement.removeChild(card);
+  }
+
+  // decide destination
+  let dest;
+  if (j.ignored === true) {
+    dest = dismissedSection;
+  } else if (j.blocked === true) {
+    dest = waitingSection;
+  } else {
+    dest = readySection;
+  }
+
+  // insert it into dest in sorted position
+  insertCardSorted(dest, card, j);
+
+  // refresh the card's buttons (in case labels/available actions changed)
+  const actionsEl = card.querySelector(".card-actions");
+  if (actionsEl) {
+    renderCardButtons(actionsEl, j, card);
+  }
+}
+
 
 
 
