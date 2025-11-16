@@ -1485,6 +1485,68 @@ function colorByLevel(v, invert){
   return colors[(invertOffset - map[v]) * invertMultiplier];
 }
 
+function renderCardButtons(actions, j, card) {
+  actions.innerHTML = ""; // clear previous buttons
+
+  const addButton = (label, handler) => {
+    const btn = document.createElement("div");
+    btn.className = "action-btn";
+    btn.textContent = label;
+    btn.onclick = handler;
+    actions.appendChild(btn);
+  };
+
+  // Always present:
+  addButton(`View on ${j.source}`, () =>
+    window.open(j.source_details_url, "_blank")
+  );
+  addButton("Edit Notes", () => {
+    overlay.style.display = "flex";
+    notesTextarea.value = j.user_notes || "";
+    notesTextarea.dataset.cardId = j.id;
+  });
+
+  // Current bucket → valid transitions
+  if (!j.blocked && !j.ignored) {
+    // READY → Waiting, Dismissed
+    addButton("Move to Waiting", () => {
+      j.blocked = true;
+      j.ignored = false;
+      moveCard(card, j);
+    });
+    addButton("Move to Dismissed", () => {
+      j.ignored = true;
+      j.blocked = false;
+      moveCard(card, j);
+    });
+  } else if (j.blocked) {
+    // WAITING → Ready, Dismissed
+    addButton("Move to Ready For Review", () => {
+      j.blocked = false;
+      j.ignored = false;
+      moveCard(card, j);
+    });
+    addButton("Move to Dismissed", () => {
+      j.ignored = true;
+      j.blocked = false;
+      moveCard(card, j);
+    });
+  } else if (j.ignored) {
+    // DISMISSED → Ready, Waiting
+    addButton("Move to Ready For Review", () => {
+      j.ignored = false;
+      j.blocked = false;
+      moveCard(card, j);
+    });
+    addButton("Move to Waiting", () => {
+      j.blocked = true;
+      j.ignored = false;
+      moveCard(card, j);
+    });
+  }
+}
+
+
 function makeCard(j){
   const card=document.createElement("div");
   card.className="card";
@@ -1629,48 +1691,13 @@ en.appendChild(enHeader);
   }
 
     // Create bottom buttons container
+// Create bottom buttons container
 const actions = document.createElement("div");
 actions.className = "card-actions";
 
-// "View on source" button
-const viewBtn = document.createElement("div");
-viewBtn.className = "action-btn";
-viewBtn.textContent = `View on ${j.source}`;
-viewBtn.onclick = () => window.open(j.source_details_url, "_blank");
-actions.appendChild(viewBtn);
+// Render the correct buttons depending on state
+renderCardButtons(actions, j, card);
 
-// "Edit Notes" button
-const notesBtn = document.createElement("div");
-notesBtn.className = "action-btn";
-notesBtn.textContent = "Edit Notes";
-notesBtn.onclick = () => {
-  overlay.style.display = "flex";
-  notesTextarea.value = j.user_notes || "";
-  notesTextarea.dataset.cardId = j.id;
-};
-actions.appendChild(notesBtn);
-
-// "Mark as Blocked" button
-const blockBtn = document.createElement("div");
-blockBtn.className = "action-btn";
-blockBtn.textContent = "Mark as Blocked";
-blockBtn.onclick = () => {
-  j.blocked = true;
-  j.ignored = false;
-  moveCard(card, j);
-};
-actions.appendChild(blockBtn);
-
-// "Mark as Ignored" button
-const ignoreBtn = document.createElement("div");
-ignoreBtn.className = "action-btn";
-ignoreBtn.textContent = "Mark as Ignored";
-ignoreBtn.onclick = () => {
-  j.ignored = true;
-  j.blocked = false;
-  moveCard(card, j);
-};
-actions.appendChild(ignoreBtn);
 
 
   card.append(top,mid,bottom, actions);
@@ -1701,6 +1728,8 @@ function moveCard(card, j) {
   } else {
     readySection.appendChild(card);
   }
+
+  renderCardButtons(card.querySelector(".card-actions"), j, card);
 }
 
 
