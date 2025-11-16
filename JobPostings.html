@@ -6,9 +6,9 @@
 <title>Job Postings</title>
 <style>
 body {
-  background: black;
+  background: #f2f2f7;
   font-family: "Segoe UI", Roboto, sans-serif;
-  color: white;
+  color: #222;
   margin: 0;
   padding: 2rem;
   display: flex;
@@ -18,8 +18,8 @@ body {
 }
 
 .card {
-  background: #454545;
-  width: 96%;
+  background: #fff;
+  width: 700px;
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   position: relative;
@@ -282,104 +282,9 @@ body {
   font-weight: 600;
 }
 
-.accordion {
-  width: 100%;
-  max-width: 900px;  /* choose width that fits your cards */
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  margin: 0 auto;
-}
-
-
-.accordion-header {
-  padding: 1rem;
-  font-weight: 600;
-  background: #e0e0e5;
-  cursor: pointer;
-}
-
-.accordion-content {
-  padding: 1rem 0;
-  display: none;
-  background-color: #383838;
-}
-
-.accordion-section {
-  width: 800px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
-}
-
-.accordion-header {
-  padding: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-  background: #8f8f8f;
-}
-
-.accordion-content {
-  padding: 1rem;
-  display: none;
-}
-
-.accordion-section {
-  width: 100%;
-  max-width: 900px; /* or whatever width matches your card layout */
-  margin: 0 auto;   /* center it */
-}
-
-.accordion-content {
-  width: 100%;
-}
-
-.card {
-  box-sizing: border-box;
-}
-
-.accordion-header {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-
-
-
-
 </style>
 </head>
 <body>
-<h1 style="margin:0;">Job Listings</h1>
-<h3 id="timestamp-subheading" style="margin-top:-0.5rem; font-weight:400; color:#444;">
-  as of ...
-</h3>
-
-<div class="accordion">
-  <div class="accordion-header" data-target="section-ready">
-    Ready For Review
-  </div>
-  <div class="accordion-content" id="section-ready" style="display: block;"></div>
-</div>
-
-<div class="accordion">
-  <div class="accordion-header" data-target="section-waiting">
-    Waiting
-  </div>
-  <div class="accordion-content" id="section-waiting" style="display: none;"></div>
-</div>
-
-<div class="accordion">
-  <div class="accordion-header" data-target="section-dismissed">
-    Dismissed
-  </div>
-  <div class="accordion-content" id="section-dismissed" style="display: none;"></div>
-</div>
-
-
 <div id="overlay-notes">
   <div class="notes-box">
     <textarea id="notes-textarea"></textarea>
@@ -391,21 +296,981 @@ body {
 </div>
 <script>
 const generationTimestamp = new Date();
-const jobPostings = [];  //Replace this line
+const jobPostings = [
+  {
+    "id": 1,
+    "llm_match_percent": 65,
+    "llm_short_title": "Engineering Manager",
+    "llm_short_duty": "Leading platform service development",
+    "llm_short_company_type": "Manufacturing SaaS",
+    "llm_remote_percentage": 20,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/caddi/caddi-engineering-manager-id5a0w",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "Conversational",
+    "salary_max": 14000000,
+    "salary_min": 10000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:49.561Z\"",
+    "updatedAt": "\"2025-11-16T16:45:20.406Z\"",
+    "llm_techs_used": {
+      "Python": 1,
+      "Kubernetes": 0,
+      "PostgreSQL": 0,
+      "gRPC": 0,
+      "GraphQL": 0,
+      "React": 0,
+      "TypeScript": 0,
+      "Rust": 0
+    }
+  },
+  {
+    "id": 2,
+    "llm_match_percent": 60,
+    "llm_short_title": "Site Reliability Engineer",
+    "llm_short_duty": "Operating cloud and Kubernetes infrastructure",
+    "llm_short_company_type": "Sales SaaS",
+    "llm_remote_percentage": 50,
+    "remote_partial": true,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/sales-marker/sales-marker-site-reliability-engineer-h990f1",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "None",
+    "salary_max": 12000000,
+    "salary_min": 6000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:49.561Z\"",
+    "updatedAt": "\"2025-11-16T16:45:20.416Z\"",
+    "llm_techs_used": {
+      "Kubernetes": 0,
+      "AWS": 2,
+      "Terraform": 0,
+      "Datadog": 0,
+      "Go": 0,
+      "Java": 4,
+      "Python": 1
+    }
+  },
+  {
+    "id": 3,
+    "llm_match_percent": 15,
+    "llm_short_title": "Senior Product Manager",
+    "llm_short_duty": "Managing test-automation products",
+    "llm_short_company_type": "AI software-testing",
+    "llm_remote_percentage": 20,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/autify/autify-senior-product-manager---er38s8",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "Business",
+    "salary_max": 15000000,
+    "salary_min": 8000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:49.561Z\"",
+    "updatedAt": "\"2025-11-16T16:45:20.439Z\"",
+    "llm_techs_used": {
+      "Git": 4,
+      "Jira": 4
+    }
+  },
+  {
+    "id": 61,
+    "llm_match_percent": 15,
+    "llm_short_title": "Ruby on Rails Engineer",
+    "llm_short_duty": "Delivering web-based software",
+    "llm_short_company_type": "Business & IT Consulting",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/scoville/scoville-experienced-ruby-on-rails-engineer-1h808e",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "Business",
+    "salary_max": 13000000,
+    "salary_min": 9000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
+    "updatedAt": "\"2025-11-16T16:45:25.441Z\"",
+    "llm_techs_used": {
+      "Ruby": 0,
+      "Ruby On Rails": 0,
+      "JavaScript": 2,
+      "TypeScript": 0,
+      "Docker": 2,
+      "HTML": 4,
+      "CSS": 2
+    }
+  },
+  {
+    "id": 62,
+    "llm_match_percent": 5,
+    "llm_short_title": "Product Designer",
+    "llm_short_duty": "designing user experiences for AI products",
+    "llm_short_company_type": "Business creation / AI",
+    "llm_remote_percentage": 50,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/scoville/scoville-experienced-product-designer-ai-lufdw5",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "Business",
+    "salary_max": 12000000,
+    "salary_min": 8000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
+    "updatedAt": "\"2025-11-16T16:45:25.450Z\"",
+    "llm_techs_used": {
+      "Figma": 0,
+      "Sketch": 0,
+      "Adobe XD": 0
+    }
+  },
+  {
+    "id": 63,
+    "llm_match_percent": 38,
+    "llm_short_title": "Full-stack Engineer",
+    "llm_short_duty": "developing and maintaining web applications using TypeScript, React, NestJS, and PostgreSQL",
+    "llm_short_company_type": "HR Tech",
+    "llm_remote_percentage": 80,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery--full-stack-engineer-3dk85k",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "None",
+    "salary_max": 8500000,
+    "salary_min": 6000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
+    "updatedAt": "\"2025-11-16T16:45:25.460Z\"",
+    "llm_techs_used": {
+      "TypeScript": 0,
+      "React": 0,
+      "NestJS": 0,
+      "Node.js": 0,
+      "PostgreSQL": 0,
+      "HTML": 4,
+      "CSS": 3,
+      "JavaScript": 3,
+      "AWS": 0,
+      "Git": 4,
+      "SQL": 2,
+      "Jenkins": 4
+    }
+  },
+  {
+    "id": 64,
+    "llm_match_percent": 78,
+    "llm_short_title": "Full-Stack Engineer",
+    "llm_short_duty": "Building AI-driven interview tools",
+    "llm_short_company_type": "HR Tech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery--full-stack-engineer--ai-interview-f83ef8",
+    "source": "Japan Dev",
+    "language_en": "None",
+    "language_jp": "Fluent",
+    "salary_max": 9000000,
+    "salary_min": 7000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
+    "updatedAt": "\"2025-11-16T16:45:20.396Z\"",
+    "llm_techs_used": {
+      "Python": 2,
+      "TypeScript": 0,
+      "React": 0,
+      "AWS": 0,
+      "GitHub": 0,
+      "JIRA": 4,
+      "Git": 4
+    }
+  },
+  {
+    "id": 65,
+    "llm_match_percent": 78,
+    "llm_short_title": "Full-stack Engineer",
+    "llm_short_duty": "Building AI-powered HR tools",
+    "llm_short_company_type": "HR Tech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery-aihr-tech-v0o456",
+    "source": "Japan Dev",
+    "language_en": "None",
+    "language_jp": "Fluent",
+    "salary_max": 9000000,
+    "salary_min": 7000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
+    "updatedAt": "\"2025-11-08T05:14:03.289Z\"",
+    "llm_techs_used": {
+      "Python": 1,
+      "TypeScript": 0
+    }
+  },
+  {
+    "id": 66,
+    "llm_match_percent": 25,
+    "llm_short_title": "Backend Engineer",
+    "llm_short_duty": "Building Scala-based microservices",
+    "llm_short_company_type": "HR Tech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery-backend-engineer-scala-nruzwd",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "None",
+    "salary_max": 9500000,
+    "salary_min": 6000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
+    "updatedAt": "\"2025-11-16T16:45:25.469Z\"",
+    "llm_techs_used": {
+      "Scala": 0,
+      "PostgreSQL": 2,
+      "AWS": 2,
+      "Docker": 2,
+      "Redis": 0,
+      "Terraform": 0,
+      "React": 0,
+      "TypeScript": 0
+    }
+  },
+  {
+    "id": 67,
+    "llm_match_percent": 27,
+    "llm_short_title": "Rails Engineer",
+    "llm_short_duty": "developing and operating web services for real-estate clients",
+    "llm_short_company_type": "PropTech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/spacely/spacely-rails-engineer-1dc4i4",
+    "source": "Japan Dev",
+    "language_en": "Conversational",
+    "language_jp": "Business",
+    "salary_max": 10000000,
+    "salary_min": 6000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
+    "updatedAt": "\"2025-11-16T16:45:25.480Z\"",
+    "llm_techs_used": {
+      "Ruby on Rails": 0,
+      "Ruby": 0,
+      "JavaScript": 2,
+      "HTML": 2,
+      "CSS": 2,
+      "MySQL": 2,
+      "PostgreSQL": 0,
+      "RSpec": 0,
+      "AWS": 0,
+      "Vue.js": 0,
+      "React.js": 0
+    }
+  },
+  {
+    "id": 68,
+    "llm_match_percent": 45,
+    "llm_short_title": "Frontend Engineer",
+    "llm_short_duty": "building B2B groupware with React/TypeScript/gRPC",
+    "llm_short_company_type": "SaaS collaboration",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/cybozu/cybozu-senior-frontend-engineer-f04kas",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "Conversational",
+    "salary_max": 12000000,
+    "salary_min": 10000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:05:56.365Z\"",
+    "updatedAt": "\"2025-11-16T16:45:25.489Z\"",
+    "llm_techs_used": {
+      "React": 1,
+      "TypeScript": 0,
+      "gRPC": 0,
+      "OAuth 2": 0,
+      "CI/CD": 3
+    }
+  },
+  {
+    "id": 121,
+    "llm_match_percent": 42,
+    "llm_short_title": "R&D Manager",
+    "llm_short_duty": "leading 3D/AI prototyping for a spatial-data SaaS",
+    "llm_short_company_type": "PropTech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/spacely/spacely-rd-engineermanager-9jqqga",
+    "source": "Japan Dev",
+    "language_en": "Conversational",
+    "language_jp": "Business",
+    "salary_max": 12000000,
+    "salary_min": 7500000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
+    "updatedAt": "\"2025-11-16T16:45:30.278Z\"",
+    "llm_techs_used": {
+      "Python": 1,
+      "TypeScript": 0,
+      "WebGL": 0,
+      "ML": 1
+    }
+  },
+  {
+    "id": 122,
+    "llm_match_percent": 25,
+    "llm_short_title": "Founding Engineer",
+    "llm_short_duty": "Building voice/ambient-AI web products",
+    "llm_short_company_type": "AI startup",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/alenx/alenx-founding-engineer-cto-candidate-vibzd3",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "None",
+    "salary_max": 25000000,
+    "salary_min": 20000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
+    "updatedAt": "\"2025-11-16T16:45:30.287Z\"",
+    "llm_techs_used": {
+      "TypeScript": 0,
+      "React": 0,
+      "React Router v7": 0,
+      "Vite": 0,
+      "Vitest": 0,
+      "Playwright": 0,
+      "pnpm": 0,
+      "Cloudflare": 0,
+      "Turso": 0
+    }
+  },
+  {
+    "id": 123,
+    "llm_match_percent": 60,
+    "llm_short_title": "Frontend Engineer",
+    "llm_short_duty": "Building medical AI web interfaces",
+    "llm_short_company_type": "HealthTech",
+    "llm_remote_percentage": 100,
+    "remote_partial": true,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/sind/sind-frontend-engineer-web-ctt62c",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "Conversational",
+    "salary_max": 8400000,
+    "salary_min": 3600000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
+    "updatedAt": "\"2025-11-16T16:45:30.297Z\"",
+    "llm_techs_used": {
+      "React": 2,
+      "TypeScript": 0,
+      "HTML": 4,
+      "CSS": 3,
+      "JavaScript": 2,
+      "Next.js": 0,
+      "Tailwind CSS": 0,
+      "Grafana": 0
+    }
+  },
+  {
+    "id": 124,
+    "llm_match_percent": 45,
+    "llm_short_title": "Site Reliability Engineer",
+    "llm_short_duty": "automating cloud infrastructure and maintaining reliability",
+    "llm_short_company_type": "AI software testing",
+    "llm_remote_percentage": 50,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/autify/autify-senior-site-reliability-engineer-bnqnqq",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "None",
+    "salary_max": 10000000,
+    "salary_min": 8000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
+    "updatedAt": "\"2025-11-16T16:45:30.310Z\"",
+    "llm_techs_used": {
+      "AWS": 0,
+      "Google Cloud": 0,
+      "Terraform": 0,
+      "Kubernetes": 0,
+      "Docker": 0,
+      "Python": 1,
+      "Go": 0,
+      "PostgreSQL": 0,
+      "Git": 4,
+      "JavaScript": 2,
+      "TypeScript": 0,
+      "React": 0,
+      "Ruby on Rails": 0,
+      "Jenkins": 4,
+      "Selenium": 1
+    }
+  },
+  {
+    "id": 125,
+    "llm_match_percent": 15,
+    "llm_short_title": "UI/UX Design Lead",
+    "llm_short_duty": "Leading design teams and designing HR assessment platforms",
+    "llm_short_company_type": "HR Tech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery-hr-tech-uiux-design-lead-54tfdd",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "None",
+    "salary_max": 10200000,
+    "salary_min": 8400000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
+    "updatedAt": "\"2025-11-16T16:45:30.319Z\"",
+    "llm_techs_used": {}
+  },
+  {
+    "id": 126,
+    "llm_match_percent": 78,
+    "llm_short_title": "Senior Full-Stack Engineer",
+    "llm_short_duty": "building B2B SaaS web applications",
+    "llm_short_company_type": "Manufacturing AI Platform",
+    "llm_remote_percentage": 60,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/caddi/caddi-senior-software-engineer-backend---english-i6b8nk",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "Conversational",
+    "salary_max": 12000000,
+    "salary_min": 8500000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:03.894Z\"",
+    "updatedAt": "\"2025-11-16T16:45:30.328Z\"",
+    "llm_techs_used": {
+      "TypeScript": 1,
+      "React": 1,
+      "Node.js": 2,
+      "Docker": 2,
+      "Kubernetes": 0,
+      "PostgreSQL": 0,
+      "GraphQL": 0,
+      "REST": 3,
+      "Git": 4,
+      "GitHub Actions": 0,
+      "Google Cloud": 0,
+      "Rust": 0,
+      "Go": 0
+    }
+  },
+  {
+    "id": 181,
+    "llm_match_percent": 29,
+    "llm_short_title": "Senior Machine Learning Engineer",
+    "llm_short_duty": "building LLM-based QA automation",
+    "llm_short_company_type": "AI/Software Testing",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/autify/autify-senior-machine-learning-engineer-llms--prompt-engineering-new-project-dhvizi",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "None",
+    "salary_max": 12000000,
+    "salary_min": 8000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:10.033Z\"",
+    "updatedAt": "\"2025-11-08T05:14:03.289Z\"",
+    "llm_techs_used": {
+      "Python": 1,
+      "PyTorch": 1,
+      "Kubernetes": 0,
+      "GPT-4": 0,
+      "FastAPI": 0,
+      "Docker": 2,
+      "PostgreSQL": 0,
+      "Selenium": 1,
+      "Git": 4
+    }
+  },
+  {
+    "id": 182,
+    "llm_match_percent": 15,
+    "llm_short_title": "Salesforce Development Engineer",
+    "llm_short_duty": "building Salesforce/Agentforce solutions",
+    "llm_short_company_type": "HRTech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery-salesforceagentforce-nut8fl",
+    "source": "Japan Dev",
+    "language_en": "None",
+    "language_jp": "Business",
+    "salary_max": 10200000,
+    "salary_min": 6000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:10.033Z\"",
+    "updatedAt": "\"2025-11-16T16:45:34.837Z\"",
+    "llm_techs_used": {
+      "Salesforce": 0,
+      "Apex": 0,
+      "Visualforce": 0,
+      "Lightning": 0
+    }
+  },
+  {
+    "id": 241,
+    "llm_match_percent": 25,
+    "llm_short_title": "Engineering Manager",
+    "llm_short_duty": "Leading infrastructure/DevOps teams and driving IaC automation",
+    "llm_short_company_type": "HRTech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery--site-reliability-engineer-6jsdyi",
+    "source": "Japan Dev",
+    "language_en": "None",
+    "language_jp": "Business",
+    "salary_max": 12000000,
+    "salary_min": 8000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:17.985Z\"",
+    "updatedAt": "\"2025-11-16T16:45:39.107Z\"",
+    "llm_techs_used": {
+      "Terraform": 1,
+      "AWS": 0,
+      "Docker": 2
+    }
+  },
+  {
+    "id": 242,
+    "llm_match_percent": 45,
+    "llm_short_title": "QA Consultant",
+    "llm_short_duty": "advising clients on test automation and quality issues",
+    "llm_short_company_type": "AI software testing",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery-engineering-manager-infrastructure-9yk3ew",
+    "source": "Japan Dev",
+    "language_en": "None",
+    "language_jp": "Business",
+    "salary_max": 12000000,
+    "salary_min": 8000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:17.985Z\"",
+    "updatedAt": "\"2025-11-16T16:45:39.118Z\"",
+    "llm_techs_used": {
+      "Selenium": 1
+    }
+  },
+  {
+    "id": 243,
+    "llm_match_percent": 35,
+    "llm_short_title": "QA Consultant",
+    "llm_short_duty": "advising clients on test automation and quality assurance",
+    "llm_short_company_type": "AI software testing",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/autify/autify-qa-consultant-kcplts",
+    "source": "Japan Dev",
+    "language_en": "Conversational",
+    "language_jp": "Business",
+    "salary_max": 10000000,
+    "salary_min": 7000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:17.985Z\"",
+    "updatedAt": "\"2025-11-16T16:45:39.128Z\"",
+    "llm_techs_used": {
+      "Selenium": 1
+    }
+  },
+  {
+    "id": 285,
+    "llm_match_percent": 92,
+    "llm_short_title": "Full-Stack Engineer",
+    "llm_short_duty": "developing web and business applications",
+    "llm_short_company_type": "System Integrator",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Kanagawa",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1088219",
+    "source": "Daijob",
+    "language_en": "Conversational",
+    "language_jp": "Conversational",
+    "salary_max": 8500000,
+    "salary_min": 4500000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
+    "updatedAt": "\"2025-11-16T16:40:24.744Z\"",
+    "llm_techs_used": {
+      "Java": 4,
+      "JavaScript": 3,
+      "HTML": 4,
+      "CSS": 3,
+      "Node.js": 0,
+      "React": 0,
+      "TypeScript": 0,
+      "PHP": 0,
+      "C": 0,
+      "C++": 0,
+      "C#": 0,
+      "Python": 1,
+      "AWS": 0,
+      "GCP": 0,
+      "Azure": 0
+    }
+  },
+  {
+    "id": 286,
+    "llm_match_percent": 85,
+    "llm_short_title": "Full-stack Engineer",
+    "llm_short_duty": "Building web services and business applications",
+    "llm_short_company_type": "System Integrator",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Kanagawa",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1087845",
+    "source": "Daijob",
+    "language_en": "Conversational",
+    "language_jp": "Business",
+    "salary_max": 12000000,
+    "salary_min": 5000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
+    "updatedAt": "\"2025-11-16T16:40:24.758Z\"",
+    "llm_techs_used": {
+      "Java": 4,
+      "HTML": 4,
+      "CSS": 3,
+      "Javascript": 3,
+      "React": 0,
+      "Typescript": 0,
+      "Node.js": 0,
+      "Python": 1,
+      "AWS": 0,
+      "GCP": 0,
+      "Azure": 0
+    }
+  },
+  {
+    "id": 291,
+    "llm_match_percent": 70,
+    "llm_short_title": "Data & AI Project Manager",
+    "llm_short_duty": "managing data/AI projects",
+    "llm_short_company_type": "Major Japanese",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1473670",
+    "source": "Daijob",
+    "language_en": "None",
+    "language_jp": "Business",
+    "salary_max": 10000000,
+    "salary_min": 5500000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
+    "updatedAt": "\"2025-11-16T16:40:24.836Z\"",
+    "llm_techs_used": {
+      "Python": 1,
+      "JavaScript": 0,
+      "TypeScript": 0,
+      "SQL": 2,
+      "Terraform": 0,
+      "Cloudformation": 0,
+      "Oracle": 2,
+      "PostgreSQL": 0,
+      "MySQL": 2,
+      "Redshift": 0,
+      "BigQuery": 0,
+      "Azure Databricks": 0,
+      "AWS": 0,
+      "Google Cloud": 0,
+      "Azure": 0,
+      "GitHub": 0,
+      "GitLab": 0,
+      "CodePipeline": 0,
+      "Slack": 0,
+      "Teams": 0,
+      "Docker": 2
+    }
+  },
+  {
+    "id": 293,
+    "llm_match_percent": 35,
+    "llm_short_title": "Front-end developer",
+    "llm_short_duty": "Building blockchain web applications",
+    "llm_short_company_type": "Telecommunications/Information Services",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1423856",
+    "source": "Daijob",
+    "language_en": "None",
+    "language_jp": "Business",
+    "salary_max": 18000000,
+    "salary_min": 7000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
+    "updatedAt": "\"2025-11-16T16:40:24.868Z\"",
+    "llm_techs_used": {
+      "TypeScript": 0,
+      "Next.js": 0,
+      "React": 0,
+      "wagmi": 0,
+      "Chakra UI": 0,
+      "Go": 0,
+      "Rust": 0,
+      "Solidity": 0,
+      "Kotlin": 0,
+      "PostgreSQL": 0,
+      "Azure": 0,
+      "Kubernetes": 0,
+      "GitHub Actions": 0,
+      "Argo CD": 0,
+      "Argo Workflows": 0,
+      "OpenTelemetry": 0,
+      "Grafana": 0
+    }
+  },
+  {
+    "id": 294,
+    "llm_match_percent": 55,
+    "llm_short_title": "Site Reliability Engineer",
+    "llm_short_duty": "Building and maintaining blockchain infrastructure",
+    "llm_short_company_type": "Telecommunications/Information Services",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1423854",
+    "source": "Daijob",
+    "language_en": "None",
+    "language_jp": "Business",
+    "salary_max": 18000000,
+    "salary_min": 7000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
+    "updatedAt": "\"2025-11-16T16:40:24.886Z\"",
+    "llm_techs_used": {
+      "Go": 0,
+      "Rust": 0,
+      "Kubernetes": 0,
+      "PostgreSQL": 0,
+      "Azure": 0,
+      "GitHub Actions": 0,
+      "Grafana": 0,
+      "TypeScript": 0,
+      "Next.js": 0
+    }
+  },
+  {
+    "id": 295,
+    "llm_match_percent": 48,
+    "llm_short_title": "Blockchain Backend Engineer",
+    "llm_short_duty": "designing and implementing blockchain core infrastructure",
+    "llm_short_company_type": "FinTech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1423852",
+    "source": "Daijob",
+    "language_en": "None",
+    "language_jp": "Business",
+    "salary_max": 18000000,
+    "salary_min": 7000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:21.693Z\"",
+    "updatedAt": "\"2025-11-16T16:40:24.902Z\"",
+    "llm_techs_used": {
+      "Go": 0,
+      "Rust": 0,
+      "Solidity": 0,
+      "Kotlin": 0,
+      "PostgreSQL": 0,
+      "TypeScript": 0,
+      "Next.js": 0,
+      "Kubernetes": 0,
+      "GitHub Actions": 0,
+      "Grafana": 0
+    }
+  },
+  {
+    "id": 305,
+    "llm_match_percent": 25,
+    "llm_short_title": "Senior Data Analyst",
+    "llm_short_duty": "building data models for real-estate decisions",
+    "llm_short_company_type": "Real-Estate Marketplace",
+    "llm_remote_percentage": 60,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1464217",
+    "source": "Daijob",
+    "language_en": "Conversational",
+    "language_jp": "Conversational",
+    "salary_max": 12000000,
+    "salary_min": 8000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:27.052Z\"",
+    "updatedAt": "\"2025-11-16T16:40:31.741Z\"",
+    "llm_techs_used": {
+      "SQL": 2,
+      "MySQL": 2,
+      "PostgreSQL": 0,
+      "Snowflake": 0,
+      "dbt": 0,
+      "Tableau": 0,
+      "Google Analytics 4": 0
+    }
+  },
+  {
+    "id": 309,
+    "llm_match_percent": 42,
+    "llm_short_title": "Full-stack Engineer",
+    "llm_short_duty": "developing a supplement and skincare lifestyle app",
+    "llm_short_company_type": "Telecommunications/Information Services",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1404277",
+    "source": "Daijob",
+    "language_en": "None",
+    "language_jp": "Fluent",
+    "salary_max": 8500000,
+    "salary_min": 6000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:27.052Z\"",
+    "updatedAt": "\"2025-11-16T16:40:31.784Z\"",
+    "llm_techs_used": {
+      "Git": 4,
+      "Jenkins": 4,
+      "Firebase": 0,
+      "Sonar": 0
+    }
+  },
+  {
+    "id": 310,
+    "llm_match_percent": 42,
+    "llm_short_title": "Backend Engineer",
+    "llm_short_duty": "building AI English-learning web services",
+    "llm_short_company_type": "EdTech",
+    "llm_remote_percentage": 50,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1352556",
+    "source": "Daijob",
+    "language_en": "Conversational",
+    "language_jp": "Business",
+    "salary_max": 12000000,
+    "salary_min": 7000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:27.052Z\"",
+    "updatedAt": "\"2025-11-16T16:40:31.795Z\"",
+    "llm_techs_used": {
+      "Python": 1,
+      "Flask": 0,
+      "Django": 0,
+      "REST": 3,
+      "GraphQL": 0,
+      "AWS": 0,
+      "Linux": 2,
+      "RDBMS": 2,
+      "Git": 4,
+      "Terraform": 0
+    }
+  },
+  {
+    "id": 312,
+    "llm_match_percent": 45,
+    "llm_short_title": "Front-end engineer",
+    "llm_short_duty": "developing Vue.js/React front-ends for AI English-learning apps",
+    "llm_short_company_type": "EdTech",
+    "llm_remote_percentage": 50,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Tokyo",
+    "source_details_url": "https://www.daijob.com/en/jobs/detail/1353771",
+    "source": "Daijob",
+    "language_en": "Conversational",
+    "language_jp": "Business",
+    "salary_max": 12000000,
+    "salary_min": 7000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-05T02:06:27.052Z\"",
+    "updatedAt": "\"2025-11-16T16:40:31.816Z\"",
+    "llm_techs_used": {
+      "Vue.js": 0,
+      "React": 0
+    }
+  },
+  {
+    "id": 327,
+    "llm_match_percent": 15,
+    "llm_short_title": "UX/UI Designer",
+    "llm_short_duty": "Designing user interfaces and user experiences",
+    "llm_short_company_type": "HR Tech",
+    "llm_remote_percentage": 100,
+    "remote_partial": false,
+    "remote_full": true,
+    "location": "Remote",
+    "source_details_url": "https://japan-dev.com/jobs/givery/givery-hr-tech-senior-uxui-designer-k8193n",
+    "source": "Japan Dev",
+    "language_en": "Business",
+    "language_jp": "None",
+    "salary_max": 8400000,
+    "salary_min": 6000000,
+    "new_to_me": false,
+    "createdAt": "\"2025-11-11T17:25:19.494Z\"",
+    "updatedAt": "\"2025-11-16T16:45:20.428Z\"",
+    "llm_techs_used": {
+      "Figma": 0
+    }
+  }
+];
 
 jobPostings.sort((a, b) => b.llm_match_percent - a.llm_match_percent);
-
-document.getElementById("timestamp-subheading").textContent =
-  "as of " + generationTimestamp.toLocaleString();
-
-document.querySelectorAll(".accordion-header").forEach(h => {
-  h.addEventListener("click", () => {
-    const target = document.getElementById(h.dataset.target);
-    const isOpen = target.style.display === "block";
-    target.style.display = isOpen ? "none" : "block";
-  });
-});
-
 
 function colorFromPercent(p){
   const r = p<50 ? 255 : Math.round(255 - (p-50)*5.1);
@@ -421,72 +1286,9 @@ function colorByLevel(v, invert){
   return colors[(invertOffset - map[v]) * invertMultiplier];
 }
 
-function renderCardButtons(actions, j, card) {
-  actions.innerHTML = ""; // clear previous buttons
-
-  const addButton = (label, handler) => {
-    const btn = document.createElement("div");
-    btn.className = "action-btn";
-    btn.textContent = label;
-    btn.onclick = handler;
-    actions.appendChild(btn);
-  };
-
-  // Always present:
-  addButton(`View on ${j.source}`, () =>
-    window.open(j.source_details_url, "_blank")
-  );
-  addButton("Edit Notes", () => {
-    overlay.style.display = "flex";
-    notesTextarea.value = j.user_notes || "";
-    notesTextarea.dataset.cardId = j.id;
-  });
-
-  // Current bucket → valid transitions
-  if (!j.blocked && !j.ignored) {
-    // READY → Waiting, Dismissed
-    addButton("Move to Waiting", () => {
-      j.blocked = true;
-      j.ignored = false;
-      moveCard(card, j);
-    });
-    addButton("Move to Dismissed", () => {
-      j.ignored = true;
-      j.blocked = false;
-      moveCard(card, j);
-    });
-  } else if (j.blocked) {
-    // WAITING → Ready, Dismissed
-    addButton("Move to Ready For Review", () => {
-      j.blocked = false;
-      j.ignored = false;
-      moveCard(card, j);
-    });
-    addButton("Move to Dismissed", () => {
-      j.ignored = true;
-      j.blocked = false;
-      moveCard(card, j);
-    });
-  } else if (j.ignored) {
-    // DISMISSED → Ready, Waiting
-    addButton("Move to Ready For Review", () => {
-      j.ignored = false;
-      j.blocked = false;
-      moveCard(card, j);
-    });
-    addButton("Move to Waiting", () => {
-      j.blocked = true;
-      j.ignored = false;
-      moveCard(card, j);
-    });
-  }
-}
-
-
 function makeCard(j){
   const card=document.createElement("div");
   card.className="card";
-  card.dataset.id = String(j.id);
   card.style.border=`3px solid ${colorFromPercent(j.llm_match_percent)}`;
   card.style.boxShadow=`0 0 12px ${colorFromPercent(j.llm_match_percent)}`;
 
@@ -628,116 +1430,59 @@ en.appendChild(enHeader);
   }
 
     // Create bottom buttons container
-// Create bottom buttons container
 const actions = document.createElement("div");
 actions.className = "card-actions";
 
-// Render the correct buttons depending on state
-renderCardButtons(actions, j, card);
+// "View on source" button
+const viewBtn = document.createElement("div");
+viewBtn.className = "action-btn";
+viewBtn.textContent = `View on ${j.source}`;
+viewBtn.onclick = () => window.open(j.source_details_url, "_blank");
+actions.appendChild(viewBtn);
 
+// "Edit Notes" button
+const notesBtn = document.createElement("div");
+notesBtn.className = "action-btn";
+notesBtn.textContent = "Edit Notes";
+notesBtn.onclick = () => {
+  overlay.style.display = "flex";
+  notesTextarea.value = j.note || "";
+  notesTextarea.dataset.cardId = j.id; // track which card
+};
+actions.appendChild(notesBtn);
+
+// "Mark as Blocked" button
+const blockBtn = document.createElement("div");
+blockBtn.className = "action-btn";
+blockBtn.textContent = "Mark as Blocked";
+blockBtn.onclick = () => { j.blocked = true; };
+actions.appendChild(blockBtn);
+
+// "Mark as Ignored" button
+const ignoreBtn = document.createElement("div");
+ignoreBtn.className = "action-btn";
+ignoreBtn.textContent = "Mark as Ignored";
+ignoreBtn.onclick = () => { j.ignored = true; };
+actions.appendChild(ignoreBtn);
 
 
   card.append(top,mid,bottom, actions);
   return card;
 }
 
-const readySection = document.getElementById("section-ready");
-const waitingSection = document.getElementById("section-waiting");
-const dismissedSection = document.getElementById("section-dismissed");
-
-jobPostings.forEach(j => {
-  const card = makeCard(j);
-  if (j.ignored === true) { insertCardSorted(dismissedSection, card, j); }
-  else if (j.blocked === true) { insertCardSorted(waitingSection, card, j); }
-  else { insertCardSorted(readySection, card, j); }
-});
-
-function insertCardSorted(section, card, j) {
-  // Get current children as array
-  const children = Array.from(section.children);
-
-  // Find insertion point: first child whose job's llm_match_percent < j.llm_match_percent
-  let inserted = false;
-  for (let existingEl of children) {
-    const existingId = existingEl.dataset?.id;
-    if (!existingId) continue;
-    const existingJob = jobPostings.find(x => String(x.id) === String(existingId));
-    if (!existingJob) continue;
-
-    if (existingJob.llm_match_percent < j.llm_match_percent) {
-      section.insertBefore(card, existingEl);
-      inserted = true;
-      break;
-    }
-  }
-
-  // If nothing found, append to end
-  if (!inserted) {
-    section.appendChild(card);
-  }
-}
-
-
-function moveCard(card, j) {
-  // remove card from its current parent if present
-  if (card.parentElement) {
-    card.parentElement.removeChild(card);
-  }
-
-  // decide destination
-  let dest;
-  if (j.ignored === true) {
-    dest = dismissedSection;
-  } else if (j.blocked === true) {
-    dest = waitingSection;
-  } else {
-    dest = readySection;
-  }
-
-  // insert it into dest in sorted position
-  insertCardSorted(dest, card, j);
-
-  // refresh the card's buttons (in case labels/available actions changed)
-  const actionsEl = card.querySelector(".card-actions");
-  if (actionsEl) {
-    renderCardButtons(actionsEl, j, card);
-  }
-}
-
-
-
+jobPostings.forEach(j=>document.body.appendChild(makeCard(j)));
 
     const overlay = document.getElementById("overlay-notes");
 const notesTextarea = document.getElementById("notes-textarea");
 document.getElementById("save-note").onclick = () => {
   const cardId = parseInt(notesTextarea.dataset.cardId);
   const cardData = jobPostings.find(j => j.id === cardId);
-  cardData.user_notes = notesTextarea.value;
+  cardData.note = notesTextarea.value;
   overlay.style.display = "none";
 };
 document.getElementById("cancel-note").onclick = () => {
   overlay.style.display = "none";
 };
-
-// --- ACCORDION LOGIC ---
-
-function setupAccordion(id, startOpen) {
-  const acc = document.getElementById(id);
-  const header = acc.querySelector(".accordion-header");
-  const content = acc.querySelector(".accordion-content");
-
-  // initial state
-  content.style.display = startOpen ? "block" : "none";
-
-  header.addEventListener("click", () => {
-    content.style.display = (content.style.display === "none") ? "block" : "none";
-  });
-}
-
-setupAccordion("section-ready", true);     // open by default
-setupAccordion("section-waiting", false);
-setupAccordion("section-dismissed", false);
-
 
 </script>
 </body>
