@@ -1,4 +1,4 @@
-`<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -19,7 +19,7 @@ body {
 
 .card {
   background: #fff;
-  width: 700px;
+  width: 96%;
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   position: relative;
@@ -282,9 +282,103 @@ body {
   font-weight: 600;
 }
 
+.accordion {
+  width: 100%;
+  max-width: 900px;  /* choose width that fits your cards */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin: 0 auto;
+}
+
+
+.accordion-header {
+  padding: 1rem;
+  font-weight: 600;
+  background: #e0e0e5;
+  cursor: pointer;
+}
+
+.accordion-content {
+  padding: 1rem 0;
+  display: none;
+}
+
+.accordion-section {
+  width: 800px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.accordion-header {
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #e5e5ea;
+}
+
+.accordion-content {
+  padding: 1rem;
+  display: none;
+}
+
+.accordion-section {
+  width: 100%;
+  max-width: 900px; /* or whatever width matches your card layout */
+  margin: 0 auto;   /* center it */
+}
+
+.accordion-content {
+  width: 100%;
+}
+
+.card {
+  box-sizing: border-box;
+}
+
+.accordion-header {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+
+
+
 </style>
 </head>
 <body>
+<h1 style="margin:0;">Job Listings</h1>
+<h3 id="timestamp-subheading" style="margin-top:-0.5rem; font-weight:400; color:#444;">
+  as of ...
+</h3>
+
+<div class="accordion">
+  <div class="accordion-header" data-target="section-ready">
+    Ready For Review
+  </div>
+  <div class="accordion-content" id="section-ready" style="display: block;"></div>
+</div>
+
+<div class="accordion">
+  <div class="accordion-header" data-target="section-waiting">
+    Waiting
+  </div>
+  <div class="accordion-content" id="section-waiting" style="display: none;"></div>
+</div>
+
+<div class="accordion">
+  <div class="accordion-header" data-target="section-dismissed">
+    Dismissed
+  </div>
+  <div class="accordion-content" id="section-dismissed" style="display: none;"></div>
+</div>
+
+
 <div id="overlay-notes">
   <div class="notes-box">
     <textarea id="notes-textarea"></textarea>
@@ -295,7 +389,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date();
+const generationTimestamp = null; //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1268,9 +1362,21 @@ const jobPostings = [
       "Figma": 0
     }
   }
-];
+]; with Job Postings
 
 jobPostings.sort((a, b) => b.llm_match_percent - a.llm_match_percent);
+
+document.getElementById("timestamp-subheading").textContent =
+  "as of " + generationTimestamp.toLocaleString();
+
+document.querySelectorAll(".accordion-header").forEach(h => {
+  h.addEventListener("click", () => {
+    const target = document.getElementById(h.dataset.target);
+    const isOpen = target.style.display === "block";
+    target.style.display = isOpen ? "none" : "block";
+  });
+});
+
 
 function colorFromPercent(p){
   const r = p<50 ? 255 : Math.round(255 - (p-50)*5.1);
@@ -1286,9 +1392,72 @@ function colorByLevel(v, invert){
   return colors[(invertOffset - map[v]) * invertMultiplier];
 }
 
+function renderCardButtons(actions, j, card) {
+  actions.innerHTML = ""; // clear previous buttons
+
+  const addButton = (label, handler) => {
+    const btn = document.createElement("div");
+    btn.className = "action-btn";
+    btn.textContent = label;
+    btn.onclick = handler;
+    actions.appendChild(btn);
+  };
+
+  // Always present:
+  addButton(`View on ${j.source}`, () =>
+    window.open(j.source_details_url, "_blank")
+  );
+  addButton("Edit Notes", () => {
+    overlay.style.display = "flex";
+    notesTextarea.value = j.user_notes || "";
+    notesTextarea.dataset.cardId = j.id;
+  });
+
+  // Current bucket → valid transitions
+  if (!j.blocked && !j.ignored) {
+    // READY → Waiting, Dismissed
+    addButton("Move to Waiting", () => {
+      j.blocked = true;
+      j.ignored = false;
+      moveCard(card, j);
+    });
+    addButton("Move to Dismissed", () => {
+      j.ignored = true;
+      j.blocked = false;
+      moveCard(card, j);
+    });
+  } else if (j.blocked) {
+    // WAITING → Ready, Dismissed
+    addButton("Move to Ready For Review", () => {
+      j.blocked = false;
+      j.ignored = false;
+      moveCard(card, j);
+    });
+    addButton("Move to Dismissed", () => {
+      j.ignored = true;
+      j.blocked = false;
+      moveCard(card, j);
+    });
+  } else if (j.ignored) {
+    // DISMISSED → Ready, Waiting
+    addButton("Move to Ready For Review", () => {
+      j.ignored = false;
+      j.blocked = false;
+      moveCard(card, j);
+    });
+    addButton("Move to Waiting", () => {
+      j.blocked = true;
+      j.ignored = false;
+      moveCard(card, j);
+    });
+  }
+}
+
+
 function makeCard(j){
   const card=document.createElement("div");
   card.className="card";
+  card.dataset.id = String(j.id);
   card.style.border=`3px solid ${colorFromPercent(j.llm_match_percent)}`;
   card.style.boxShadow=`0 0 12px ${colorFromPercent(j.llm_match_percent)}`;
 
@@ -1430,60 +1599,117 @@ en.appendChild(enHeader);
   }
 
     // Create bottom buttons container
+// Create bottom buttons container
 const actions = document.createElement("div");
 actions.className = "card-actions";
 
-// "View on source" button
-const viewBtn = document.createElement("div");
-viewBtn.className = "action-btn";
-viewBtn.textContent = `View on ${j.source}`;
-viewBtn.onclick = () => window.open(j.source_details_url, "_blank");
-actions.appendChild(viewBtn);
+// Render the correct buttons depending on state
+renderCardButtons(actions, j, card);
 
-// "Edit Notes" button
-const notesBtn = document.createElement("div");
-notesBtn.className = "action-btn";
-notesBtn.textContent = "Edit Notes";
-notesBtn.onclick = () => {
-  overlay.style.display = "flex";
-  notesTextarea.value = j.note || "";
-  notesTextarea.dataset.cardId = j.id; // track which card
-};
-actions.appendChild(notesBtn);
-
-// "Mark as Blocked" button
-const blockBtn = document.createElement("div");
-blockBtn.className = "action-btn";
-blockBtn.textContent = "Mark as Blocked";
-blockBtn.onclick = () => { j.blocked = true; };
-actions.appendChild(blockBtn);
-
-// "Mark as Ignored" button
-const ignoreBtn = document.createElement("div");
-ignoreBtn.className = "action-btn";
-ignoreBtn.textContent = "Mark as Ignored";
-ignoreBtn.onclick = () => { j.ignored = true; };
-actions.appendChild(ignoreBtn);
 
 
   card.append(top,mid,bottom, actions);
   return card;
 }
 
-jobPostings.forEach(j=>document.body.appendChild(makeCard(j)));
+const readySection = document.getElementById("section-ready");
+const waitingSection = document.getElementById("section-waiting");
+const dismissedSection = document.getElementById("section-dismissed");
+
+jobPostings.forEach(j => {
+  const card = makeCard(j);
+  if (j.ignored === true) { insertCardSorted(dismissedSection, card, j); }
+  else if (j.blocked === true) { insertCardSorted(waitingSection, card, j); }
+  else { insertCardSorted(readySection, card, j); }
+});
+
+function insertCardSorted(section, card, j) {
+  // Get current children as array
+  const children = Array.from(section.children);
+
+  // Find insertion point: first child whose job's llm_match_percent < j.llm_match_percent
+  let inserted = false;
+  for (let existingEl of children) {
+    const existingId = existingEl.dataset?.id;
+    if (!existingId) continue;
+    const existingJob = jobPostings.find(x => String(x.id) === String(existingId));
+    if (!existingJob) continue;
+
+    if (existingJob.llm_match_percent < j.llm_match_percent) {
+      section.insertBefore(card, existingEl);
+      inserted = true;
+      break;
+    }
+  }
+
+  // If nothing found, append to end
+  if (!inserted) {
+    section.appendChild(card);
+  }
+}
+
+
+function moveCard(card, j) {
+  // remove card from its current parent if present
+  if (card.parentElement) {
+    card.parentElement.removeChild(card);
+  }
+
+  // decide destination
+  let dest;
+  if (j.ignored === true) {
+    dest = dismissedSection;
+  } else if (j.blocked === true) {
+    dest = waitingSection;
+  } else {
+    dest = readySection;
+  }
+
+  // insert it into dest in sorted position
+  insertCardSorted(dest, card, j);
+
+  // refresh the card's buttons (in case labels/available actions changed)
+  const actionsEl = card.querySelector(".card-actions");
+  if (actionsEl) {
+    renderCardButtons(actionsEl, j, card);
+  }
+}
+
+
+
 
     const overlay = document.getElementById("overlay-notes");
 const notesTextarea = document.getElementById("notes-textarea");
 document.getElementById("save-note").onclick = () => {
   const cardId = parseInt(notesTextarea.dataset.cardId);
   const cardData = jobPostings.find(j => j.id === cardId);
-  cardData.note = notesTextarea.value;
+  cardData.user_notes = notesTextarea.value;
   overlay.style.display = "none";
 };
 document.getElementById("cancel-note").onclick = () => {
   overlay.style.display = "none";
 };
 
+// --- ACCORDION LOGIC ---
+
+function setupAccordion(id, startOpen) {
+  const acc = document.getElementById(id);
+  const header = acc.querySelector(".accordion-header");
+  const content = acc.querySelector(".accordion-content");
+
+  // initial state
+  content.style.display = startOpen ? "block" : "none";
+
+  header.addEventListener("click", () => {
+    content.style.display = (content.style.display === "none") ? "block" : "none";
+  });
+}
+
+setupAccordion("section-ready", true);     // open by default
+setupAccordion("section-waiting", false);
+setupAccordion("section-dismissed", false);
+
+
 </script>
 </body>
-</html>`
+</html>
