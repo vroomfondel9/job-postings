@@ -409,7 +409,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T16:47:07.173Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T16:52:41.243Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1753,20 +1753,21 @@ en.appendChild(enHeader);
 
 const ageCircle = document.createElement("div");
 ageCircle.className = "circle age-circle";
-ageCircle.textContent = humanReadableAge(new Date(j.createdAt));
-ageCircle.style.background = colorByAge(new Date(j.createdAt));
+Date createdDate = new Date(JSON.parse(j.createdAt));
+ageCircle.textContent = humanReadableAge(createdDate);
+ageCircle.style.background = colorByAge(createdDate);
 
 // on-hover: show full date & time in Japan timezone
 ageCircle.addEventListener("mouseenter", () => {
-  const d = new Date(j.createdAt);
+  const d = createdDate;
   const options = { timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit" };
   const timeOptions = { timeZone: "Asia/Tokyo", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false };
   ageCircle.textContent = `${d.toLocaleDateString("en-CA", options)}\n${d.toLocaleTimeString("en-GB", timeOptions)}`;
 });
 
 ageCircle.addEventListener("mouseleave", () => {
-  ageCircle.textContent = humanReadableAge(new Date(j.createdAt));
-  ageCircle.style.background = colorByAge(new Date(j.createdAt)); // refresh color in case time passed
+  ageCircle.textContent = humanReadableAge(createdDate);
+  ageCircle.style.background = colorByAge(createdDate); // refresh color in case time passed
 });
 
 
