@@ -103,6 +103,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   font-weight: 600;
   color: black;
   font-size: 0.9rem;
@@ -409,7 +410,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T16:57:05.768Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T17:03:32.762Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1763,11 +1764,13 @@ ageCircle.addEventListener("mouseenter", () => {
   const options = { timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit" };
   const timeOptions = { timeZone: "Asia/Tokyo", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false };
   ageCircle.textContent = `${d.toLocaleDateString("en-CA", options)}\n${d.toLocaleTimeString("en-GB", timeOptions)}`;
+  ageCircle.style.fontSize = "0.8rem";
 });
 
 ageCircle.addEventListener("mouseleave", () => {
   ageCircle.textContent = humanReadableAge(createdDate);
   ageCircle.style.background = colorByAge(createdDate); // refresh color in case time passed
+  ageCircle.style.fontSize = "0.9rem";
 });
 
 
