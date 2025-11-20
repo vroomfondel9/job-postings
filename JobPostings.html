@@ -412,7 +412,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T17:51:06.044Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T18:20:21.242Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1625,6 +1625,14 @@ function colorByAge(createdAt) {
   return `rgb(${r},${g},${b})`;
 }
 
+function getDateFromString(value) {
+    let unwrappedStr = value;
+    while (unwrappedStr.startsWith("\\\"")) {
+        unwrappedStr = JSON.parse(unwrappedStr);
+    }
+    return new Date(unwrappedStr);
+}
+
 function renderCardButtons(actions, j, card) {
   actions.innerHTML = ""; // clear previous buttons
 
@@ -1824,8 +1832,8 @@ en.appendChild(enHeader);
 
 const ageCircle = document.createElement("div");
 ageCircle.className = "circle age-circle";
-const reportedPostedDate = new Date(j.posting_createdAt);
-const firstSeenDate  = new Date(j.createdAt);
+const reportedPostedDate = getDateFromString(j.posting_createdAt);
+const firstSeenDate  = getDateFromString(j.createdAt);
 const createdDate = reportedPostedDate < firstSeenDate ? reportedPostedDate : firstSeenDate;
 ageCircle.textContent = humanReadableAge(createdDate);
 ageCircle.style.background = colorByAge(createdDate);
