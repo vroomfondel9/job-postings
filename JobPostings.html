@@ -345,21 +345,22 @@ body {
   box-sizing: border-box;
 }
 
-.age-circle {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  top: auto;           /* override the .circle's top:0 */
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+.bottom-section {
+  position: relative;
+  width: 100%;
+  height: 80px; /* adjust height as needed */
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* or center items */
   align-items: center;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: black;
-  background: green;   /* default, overridden in JS */
+  gap: 1rem;
+}
+
+
+.age-circle {
+  position: absolute; 
+  left: 0; 
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 
@@ -408,7 +409,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T16:31:05.710Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T16:47:07.173Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1769,16 +1770,27 @@ ageCircle.addEventListener("mouseleave", () => {
 });
 
 
-  const bottom=document.createElement("div");
-  bottom.className="bottom-techs";
+  const bottomTechs=document.createElement("div");
+  bottomTechs.className="bottom-techs";
   for(const [tech,v] of Object.entries(j.llm_techs_used)){
     const t=document.createElement("span");
     t.className="tech";
     const colors=["red","orange","yellow","yellowgreen","green"];
     t.style.color=colors[v];
     t.textContent=tech;
-    bottom.appendChild(t);
+    bottomTechs.appendChild(t);
   }
+
+
+    const bottomSection = document.createElement("div");
+    bottomSection.className = "bottom-section";
+    bottomSection.style.position = "relative"; // if needed
+    
+    // append ageCircle and bottom-techs into this section
+    bottomSection.appendChild(ageCircle);
+    bottomSection.appendChild(bottomTechs);
+    
+
 
     // Create bottom buttons container
 // Create bottom buttons container
@@ -1790,7 +1802,8 @@ renderCardButtons(actions, j, card);
 
 
 
-  card.append(top,mid,bottom, ageCircle, actions);
+  
+    card.append(top, mid, bottomSection, actions);
   return card;
 }
 
