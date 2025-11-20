@@ -412,7 +412,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T18:20:21.242Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T18:24:39.468Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1627,7 +1627,7 @@ function colorByAge(createdAt) {
 
 function getDateFromString(value) {
     let unwrappedStr = value;
-    while (unwrappedStr.startsWith("\\\"")) {
+    while (unwrappedStr.startsWith("\"")) {
         unwrappedStr = JSON.parse(unwrappedStr);
     }
     return new Date(unwrappedStr);
