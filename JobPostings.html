@@ -412,7 +412,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T17:13:06.459Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T17:20:05.857Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1756,7 +1756,7 @@ en.appendChild(enHeader);
 
 const ageCircle = document.createElement("div");
 ageCircle.className = "circle age-circle";
-const createdDate = new Date(JSON.parse(j.createdAt));
+const createdDate = new Date(j.createdAt);
 ageCircle.textContent = humanReadableAge(createdDate);
 ageCircle.style.background = colorByAge(createdDate);
 
