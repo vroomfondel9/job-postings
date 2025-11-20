@@ -389,7 +389,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T15:33:05.190Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T15:36:55.204Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1378,7 +1378,7 @@ function makeCard(j){
   const jpLevelsOffsets = [6.5, 36, 66, 95].reverse();
   jpTri.style.top=(jpLevelsOffsets[jpLevels.indexOf(j.language_jp)]+"%");
   jpTri.style.transform="translateY(-50%)";
-  jpTri.style.borderRightColor=colorByLevel(j.language_jp, true);
+  jpTri.style.borderRightColor=colorByLevel(j.language_jp, false);
   jp.appendChild(jpTri);
 
   const center=document.createElement("div");
