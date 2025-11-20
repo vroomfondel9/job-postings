@@ -389,7 +389,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T15:36:55.204Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T15:40:50.521Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1314,6 +1314,8 @@ function makeCard(j){
   match.className="circle match-circle";
   match.style.background=colorFromPercent(j.llm_match_percent);
   match.textContent=j.llm_match_percent+"%";
+  match.addEventListener("mouseenter",()=>match.textContent=j.id);
+  match.addEventListener("mouseleave",()=>match.textContent=j.llm_match_percent+"%");
 
   const ruler=document.createElement("div");
   ruler.className="salary-ruler";
