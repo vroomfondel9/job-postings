@@ -389,7 +389,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-20T15:27:40.764Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-20T15:33:05.190Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1366,7 +1366,7 @@ function makeCard(j){
 
 
   jp.className="language-ruler left";
-  ["Fluent","Business","Conversational","None"].forEach(l=>{
+  ["Fluent","Business","Conversational","None"].reverse().forEach(l=>{
     const lbl=document.createElement("div");
     lbl.className="label";
     lbl.textContent=l;
@@ -1398,7 +1398,7 @@ en.appendChild(enHeader);
 
     
   en.className="language-ruler right";
-  ["None","Conversational","Business","Fluent"].forEach(l=>{
+  ["None","Conversational","Business","Fluent"].reverse().forEach(l=>{
     const lbl=document.createElement("div");
     lbl.className="label";
     lbl.textContent=l;
