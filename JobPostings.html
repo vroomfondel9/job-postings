@@ -412,7 +412,7 @@ body {
   </div>
 </div>
 <script>
-const generationTimestamp = new Date("2025-11-21T11:21:29.057Z"); //Replace this line with Generation Date
+const generationTimestamp = new Date("2025-11-21T11:31:25.634Z"); //Replace this line with Generation Date
 const jobPostings = [
   {
     "id": 1,
@@ -1181,7 +1181,7 @@ const jobPostings = [
     "salary_min": 4500000,
     "createdAt": "\"2025-11-05T02:06:21.693Z\"",
     "posting_createdAt": "\"2025-10-29T00:00:00.000Z\"",
-    "updatedAt": "\"2025-11-21T11:16:09.617Z\"",
+    "updatedAt": "\"2025-11-21T11:28:06.414Z\"",
     "posting_updatedAt": "\"2025-10-29T00:00:00.000Z\"",
     "ignored": "false",
     "blocked": "false",
@@ -1997,7 +1997,7 @@ document.getElementById("save-note").onclick = async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         id,
-        "user-notes": newText
+        "user_notes": newText
       })
     }
   );
